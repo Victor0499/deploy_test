@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-lg">
+      <div class="card-body p-5">
+        <h2 class="card-title text-center mb-4">Registro de Usuario</h2>
+        <form method="POST" action="{% url 'users:register' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center py-3">
+        {% if form.errors %}
+          <div class="alert alert-danger">
+            {% for field in form %}
+              {% for error in field.errors %}
+                <p class="mb-0">{{ error }}</p>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <p class="mb-0">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
